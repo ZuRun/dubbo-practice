@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+}
+
+group 'cn.zull.study'
+version '1.0-SNAPSHOT'
+
+// 全局扩展配置
+ext {
+    springBootVersion = '2.0.5.RELEASE'
+    lombok_version= '1.16.18'
+}
+
+subprojects {
+
+    buildscript {
+        // 全局插件所用的仓库
+        repositories {
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+            maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+            maven { url "http://maven.iflytek.com:8081/nexus/content/groups/public/" }
+        }
+
+        // 全局插件依赖
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+
+        // 配置全局默认插件
+        apply plugin: 'java'
+        apply plugin: 'idea'
+//        apply plugin: 'org.springframework.boot'
+//        apply plugin: 'io.spring.dependency-management'
+
+        // 配置源代码和生成目标的语言版本
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    // 指定字符集
+//    [compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8'
+
+    // 依赖的更新与缓存
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, java.util.concurrent.TimeUnit.SECONDS
+        resolutionStrategy.cacheDynamicVersionsFor 0, java.util.concurrent.TimeUnit.SECONDS
+    }
+
+    // 全局依赖
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+        compileOnly("org.projectlombok:lombok:${lombok_version}")
+        //compile(group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.13')
+//            testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
+
+    // 全局依赖所用的仓库
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url "http://maven.iflytek.com:8081/nexus/content/groups/public/" }
+    }
+
+    // 增加全局configurationName
+    configurations {
+    }
+
+    // 指定所使用的资源
+//    sourceSets {
+//        main {
+//            resources {
+//                srcDirs = ['src/main/resources/common', "src/main/resources/${getProperty('package.environment')}"]
+//            }
+//        }
+//    }
+    // 排除依赖
+    configurations {
+//        all*.exclude(group: 'org.slf4j', module: 'slf4j-log4j12')
+//        all*.exclude(group: 'log4j', module: 'log4j')
+    }
+}

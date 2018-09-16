@@ -1,0 +1,8 @@
+rootProject.name = 'dubbo-practice'
+
+include(
+        ':dubbo-product'
+)
+//include 'dubbo-product'
+include 'dubbo-consumer'
+
