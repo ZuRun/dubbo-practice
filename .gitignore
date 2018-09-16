@@ -18,12 +18,14 @@ rebel.xml
 
 ###
 .gradle
+*.class
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+/out/
 
 ### NetBeans ###
 nbproject/private/

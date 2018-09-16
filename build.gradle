@@ -8,10 +8,10 @@ version '1.0-SNAPSHOT'
 // 全局扩展配置
 ext {
     springBootVersion = '2.0.5.RELEASE'
-    lombok_version= '1.16.18'
+    lombok_version= '1.18.2'
 }
 
-subprojects {
+allprojects {
 
     buildscript {
         // 全局插件所用的仓库
@@ -49,6 +49,7 @@ subprojects {
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
         compileOnly("org.projectlombok:lombok:${lombok_version}")
+
         //compile(group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.13')
 //            testCompile('org.springframework.boot:spring-boot-starter-test')
     }

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author zurun
  * @date 2018/9/16 23:23:34
  */
-@SpringBootApplication(scanBasePackages = "cn.zull.study.dubbo.consumer.controller")
+@SpringBootApplication
 public class DubboConsumerApplication {
     public static void main(String[] args){
         SpringApplication.run(DubboConsumerApplication.class, args);
