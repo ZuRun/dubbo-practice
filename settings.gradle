@@ -3,6 +3,6 @@ rootProject.name = 'dubbo-practice'
 include(
         ':dubbo-product'
 )
-//include 'dubbo-product'
 include 'dubbo-consumer'
+include 'dubbo-api'
 

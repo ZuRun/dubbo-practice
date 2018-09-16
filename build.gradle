@@ -40,10 +40,10 @@ subprojects {
 //    [compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8'
 
     // 依赖的更新与缓存
-    configurations.all {
-        resolutionStrategy.cacheChangingModulesFor 0, java.util.concurrent.TimeUnit.SECONDS
-        resolutionStrategy.cacheDynamicVersionsFor 0, java.util.concurrent.TimeUnit.SECONDS
-    }
+//    configurations.all {
+//        resolutionStrategy.cacheChangingModulesFor 0, java.util.concurrent.TimeUnit.SECONDS
+//        resolutionStrategy.cacheDynamicVersionsFor 0, java.util.concurrent.TimeUnit.SECONDS
+//    }
 
     // 全局依赖
     dependencies {
