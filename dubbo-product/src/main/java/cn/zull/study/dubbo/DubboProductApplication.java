@@ -1,4 +1,4 @@
-package cn.zull.study.dubbo.product;
+package cn.zull.study.dubbo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

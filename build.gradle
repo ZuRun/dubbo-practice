@@ -49,6 +49,7 @@ allprojects {
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
         compileOnly("org.projectlombok:lombok:${lombok_version}")
+        compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
 
         //compile(group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.13')
 //            testCompile('org.springframework.boot:spring-boot-starter-test')

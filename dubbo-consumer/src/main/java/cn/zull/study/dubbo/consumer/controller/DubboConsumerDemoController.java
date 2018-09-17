@@ -2,10 +2,10 @@ package cn.zull.study.dubbo.consumer.controller;
 
 import cn.zull.study.dubbo.api.dto.ReqDto;
 import cn.zull.study.dubbo.api.dto.RespDto;
-import cn.zull.study.dubbo.api.service.DemoService;
-import com.alibaba.dubbo.config.annotation.Reference;
+import cn.zull.study.dubbo.consumer.service.DubboConsumerDemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
  * @date 2018/9/16 23:19:44
  */
 @RestController
-public class DubboConsumerDemo {
+public class DubboConsumerDemoController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Reference(version = "${demo.service.version}",
-            url = "dubbo://localhost:12345")
-    private DemoService demoService;
+    @Autowired
+    DubboConsumerDemoService demoService;
 
     @RequestMapping("/sayHello")
     public String sayHello(@RequestParam String name) {
@@ -27,8 +26,6 @@ public class DubboConsumerDemo {
 
     @PostMapping("getInfo")
     public RespDto getInfo(@RequestBody ReqDto reqDto) {
-        RespDto respDto = demoService.getInfo(reqDto);
-        logger.info("respDto:{}", respDto);
-        return respDto;
+        return demoService.getInfo(reqDto);
     }
 }

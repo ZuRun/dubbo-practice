@@ -11,6 +11,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile project(':dubbo-api')
     compile("com.alibaba.boot:dubbo-spring-boot-starter:0.2.0")
-    // 监控,启用可以直接在idea中调用http接口
-//    compileOnly("org.springframework.boot:spring-boot-starter-actuator")
+    // 切面
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.9'
+
 }
