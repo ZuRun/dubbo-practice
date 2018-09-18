@@ -1,5 +1,6 @@
 package cn.zull.study.dubbo.api.dto;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 /**
@@ -12,4 +13,8 @@ public class ReqDto {
     private String name;
     private Integer age;
 
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }
