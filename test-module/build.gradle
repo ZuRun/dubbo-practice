@@ -1,0 +1,7 @@
+plugins {
+
+}
+
+dependencies{
+    compile("cglib:cglib:2.2.2")
+}

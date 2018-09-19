@@ -7,4 +7,5 @@ include 'dubbo-consumer'
 include 'dubbo-api'
 include 'mq-consumer'
 include 'rocketmq'
+include 'test-module'
 

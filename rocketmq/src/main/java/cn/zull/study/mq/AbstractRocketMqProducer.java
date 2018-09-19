@@ -18,6 +18,7 @@ import java.util.Objects;
  * @date 2018/3/2 00:20:52
  */
 public abstract class AbstractRocketMqProducer {
+
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private DefaultMQProducer producer;
@@ -48,9 +49,10 @@ public abstract class AbstractRocketMqProducer {
     @PostConstruct
     protected void init() throws MQClientException {
 
-        this.producer = new DefaultMQProducer(producerGroup());
+        this.producer = new DefaultMQProducer();
         //指定NameServer地址，多个地址以 ; 隔开
         this.producer.setNamesrvAddr(namesrvAddr());
+        this.producer.setProducerGroup(producerGroup());
         //TODO-zurun 其他参数
 
         /**
