@@ -49,7 +49,7 @@ public abstract class AbstractRocketMqProducer {
     @PostConstruct
     protected void init() throws MQClientException {
 
-        this.producer = new DefaultMQProducer();
+        this.producer = DefaultMQProducerProxyFactory.instantiation(true);
         //指定NameServer地址，多个地址以 ; 隔开
         this.producer.setNamesrvAddr(namesrvAddr());
         this.producer.setProducerGroup(producerGroup());

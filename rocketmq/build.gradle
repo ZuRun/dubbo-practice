@@ -1,4 +1,5 @@
 dependencies {
     compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: '4.1.0-incubating'
 
+    compile 'cn.zull.tracing:tracing-rocketmq:0.0.2-RELEASE'
 }

@@ -35,9 +35,6 @@ public class DubboConsumerDemoService {
         RespDto respDto = demoService.getInfo(reqDto);
         logger.info("respDto:{}", respDto);
 
-        mqProducer.send(Tag.TAG, reqDto.getId(), reqDto.toString());
-
-
         logger.info(JSON.toJSONString(mqProducer.send(Tag.TAG, reqDto.getId(), reqDto.toString())));
         return respDto;
     }

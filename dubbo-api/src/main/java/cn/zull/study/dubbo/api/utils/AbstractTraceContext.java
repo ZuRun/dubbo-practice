@@ -18,6 +18,11 @@ public abstract class AbstractTraceContext implements TraceContext {
     }
 
     @Override
+    public TraceBO getTraceBo() {
+        return context.get();
+    }
+
+    @Override
     public void addTraceBo(TraceBO traceBO) {
         context.set(traceBO);
         print();

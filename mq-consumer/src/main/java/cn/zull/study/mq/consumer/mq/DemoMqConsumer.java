@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @Component
 public class DemoMqConsumer extends AbstractRocketMqConsumer {
-    @Value("${rocketmq.namesinvokervAddr}")
+    @Value("${rocketmq.namesrvAddr}")
     private String namesrvAddr;
 
     @Value("${rocketmq.consumerGroup}")
