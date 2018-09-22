@@ -15,4 +15,6 @@ dependencies {
     // 切面
     compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.9'
 
+    compile "cn.zull.tracing:tracing-dubbo:${tracing_version}"
+
 }
