@@ -1,6 +1,6 @@
 package cn.zull.study.dubbo.consumer.aspect;
 
-import cn.zull.study.dubbo.consumer.trace.ConsumerTraceContext;
+import cn.zull.tracing.dubbo.DubboTraceContext;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -20,7 +20,9 @@ public class DubboServiceContextAop {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    ConsumerTraceContext traceContext;
+    DubboTraceContext traceContext;
+
+//    RpcTraceContext traceContext = SpringApplicationContext.getBean(AbstractRpcTraceContext.class);
 
     @Pointcut("execution(* cn.zull.study.dubbo.consumer.service.*.*(..))")
     public void serviceApi() {
@@ -29,7 +31,6 @@ public class DubboServiceContextAop {
     @Before("serviceApi()")
     public void dubboContext(JoinPoint jp) {
         logger.info("dubbo - aspect");
-        traceContext.addRpcContext();
-//        RpcContext.getContext().setAttachments(context);
+        traceContext.consumer();
     }
 }

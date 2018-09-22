@@ -1,8 +1,8 @@
 package cn.zull.study.dubbo.consumer.aspect;
 
-import cn.zull.study.dubbo.api.bo.TraceBO;
-import cn.zull.study.dubbo.api.utils.TraceContext;
 import cn.zull.study.dubbo.api.utils.UUIDUtils;
+import cn.zull.tracing.core.AspectTraceContext;
+import cn.zull.tracing.core.TraceContext;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -22,17 +22,18 @@ public class ControllerAspect {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    TraceContext traceContext;
+    AspectTraceContext traceContext;
 
     @Pointcut("execution(* cn.zull.study.dubbo.consumer.controller.*.*(..))")
-    public void point(){}
+    public void point() {
+    }
 
     @Before("point()")
     public void before(JoinPoint jp) {
         logger.info("controller - aspect");
-        TraceBO traceBO = new TraceBO();
-        traceBO.setTraceId(UUIDUtils.simpleUUID());
-        traceBO.setSequenceNo("2018-09-17 11:18:27");
-        traceContext.addTraceBo(traceBO);
+        traceContext.product(traceDTO -> {
+            traceDTO.setTraceId(UUIDUtils.simpleUUID());
+            traceDTO.setSpanId("0.1");
+        });
     }
 }
