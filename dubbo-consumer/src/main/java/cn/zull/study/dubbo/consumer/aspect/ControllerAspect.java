@@ -1,8 +1,8 @@
 package cn.zull.study.dubbo.consumer.aspect;
 
 import cn.zull.study.dubbo.api.utils.UUIDUtils;
-import cn.zull.tracing.core.AspectTraceContext;
-import cn.zull.tracing.core.TraceContext;
+import cn.zull.tracing.core.RestTraceContext;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -11,6 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author zurun
@@ -22,7 +27,7 @@ public class ControllerAspect {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    AspectTraceContext traceContext;
+    RestTraceContext traceContext;
 
     @Pointcut("execution(* cn.zull.study.dubbo.consumer.controller.*.*(..))")
     public void point() {
@@ -31,9 +36,12 @@ public class ControllerAspect {
     @Before("point()")
     public void before(JoinPoint jp) {
         logger.info("controller - aspect");
+
         traceContext.product(traceDTO -> {
-            traceDTO.setTraceId(UUIDUtils.simpleUUID());
-            traceDTO.setSpanId("0.1");
+            if (StringUtils.isEmpty(traceDTO.getTraceId())) {
+                traceDTO.setTraceId(UUIDUtils.simpleUUID());
+                traceDTO.setSpanId("0.1");
+            }
         });
     }
 }

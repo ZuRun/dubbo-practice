@@ -3,10 +3,12 @@ package cn.zull.study.mq.consumer.mq;
 import cn.zull.study.mq.AbstractRocketMqConsumer;
 import cn.zull.study.mq.constants.ConsumerTag;
 import cn.zull.study.mq.constants.Tag;
+import cn.zull.tracing.core.RestTemplateFactory;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Set;
@@ -22,6 +24,8 @@ public class DemoMqConsumer extends AbstractRocketMqConsumer {
 
     @Value("${rocketmq.consumerGroup}")
     private String consumerGroup;
+
+    RestTemplate restTemplate = RestTemplateFactory.getSingleton();
 
     @Override
     @PostConstruct
@@ -39,6 +43,8 @@ public class DemoMqConsumer extends AbstractRocketMqConsumer {
     @Override
     public boolean consumeMsg(MessageExt messageExt) {
         logger.info("messageExt:{}", messageExt);
+        String body = new String(messageExt.getBody());
+        logger.info("rest " + restTemplate.getForObject("http://localhost:8080/sayHello?name=" + "张三", String.class));
         return true;
     }
 }
