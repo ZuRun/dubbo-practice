@@ -2,7 +2,6 @@ package cn.zull.study.dubbo.consumer.aspect;
 
 import cn.zull.study.dubbo.api.utils.UUIDUtils;
 import cn.zull.tracing.core.RestTraceContext;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -11,11 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zurun
@@ -37,11 +34,16 @@ public class ControllerAspect {
     public void before(JoinPoint jp) {
         logger.info("controller - aspect");
 
-        traceContext.product(traceDTO -> {
-            if (StringUtils.isEmpty(traceDTO.getTraceId())) {
-                traceDTO.setTraceId(UUIDUtils.simpleUUID());
-                traceDTO.setSpanId("0.1");
+        traceContext.consumer(traceDTO -> {
+            if ("0.0".equals(traceDTO.getSpanId())) {
+                Map<String, String> map = new HashMap<>();
+                map.put("sequenceNo", UUIDUtils.genRandomNum(10));
+                traceDTO.setProperties(map);
             }
+//            if (StringUtils.isEmpty(traceDTO.getTraceId())) {
+//                traceDTO.setTraceId(UUIDUtils.simpleUUID());
+//                traceDTO.setSpanId("0.1");
+//            }
         });
     }
 }

@@ -31,6 +31,6 @@ public class DubboServiceContextAop {
     @Before("serviceApi()")
     public void dubboContext(JoinPoint jp) {
         logger.info("dubbo - aspect");
-        traceContext.consumer();
+        traceContext.product();
     }
 }

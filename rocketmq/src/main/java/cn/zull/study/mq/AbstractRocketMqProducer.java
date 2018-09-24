@@ -1,7 +1,7 @@
 package cn.zull.study.mq;
 
 import cn.zull.study.mq.constants.ConsumerTag;
-import cn.zull.tracing.rocketmq.product.DefaultMQProducerProxyFactory;
+import cn.zull.tracing.rocketmq.DefaultMQProducerProxyFactory;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
