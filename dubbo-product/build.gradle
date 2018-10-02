@@ -14,6 +14,4 @@ dependencies {
 
     compile("org.apache.zookeeper:zookeeper:3.4.6")
     compile project(':dubbo-api')
-    compile "cn.zull.tracing:tracing-dubbo:${tracing_version}"
-
 }

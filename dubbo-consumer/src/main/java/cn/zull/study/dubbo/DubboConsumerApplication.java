@@ -1,7 +1,8 @@
-package cn.zull.study.dubbo.consumer;
+package cn.zull.study.dubbo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author zurun

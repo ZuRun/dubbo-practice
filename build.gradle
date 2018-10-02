@@ -9,8 +9,8 @@ version '1.0-SNAPSHOT'
 ext {
     springBootVersion = '2.0.5.RELEASE'
     lombok_version = '1.18.2'
-    tracing_version = '1.0.5-SNAPSHOT'
-//    tracing_version = '0.0.2-RELEASE'
+    tracing_version = '1.0.6-SNAPSHOT'
+//    tracing_version = '0.0.3-RELEASE'
 }
 
 allprojects {

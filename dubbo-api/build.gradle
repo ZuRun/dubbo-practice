@@ -5,5 +5,8 @@ plugins {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile("com.alibaba.boot:dubbo-spring-boot-starter:0.2.0")
+//    compile("com.alibaba.boot:dubbo-spring-boot-starter:0.2.0")
+    compile "com.alibaba.boot:dubbo-spring-boot-starter:0.2.0"
+    compile "cn.zull.tracing:tracing-dubbo:${tracing_version}"
+    compile ("com.github.sgroschupf:zkclient:0.1")
 }
