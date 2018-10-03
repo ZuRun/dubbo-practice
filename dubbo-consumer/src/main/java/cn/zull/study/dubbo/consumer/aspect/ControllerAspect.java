@@ -2,9 +2,11 @@ package cn.zull.study.dubbo.consumer.aspect;
 
 import cn.zull.study.dubbo.api.utils.UUIDUtils;
 import cn.zull.tracing.core.RestTraceContext;
-import org.aspectj.lang.JoinPoint;
+import cn.zull.tracing.core.dto.TraceDTO;
+import cn.zull.tracing.core.log.CollectingLogUtils;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,20 +32,25 @@ public class ControllerAspect {
     public void point() {
     }
 
-    @Before("point()")
-    public void before(JoinPoint jp) {
+    @Around("point()")
+    public Object before(ProceedingJoinPoint pjp) {
         logger.info("controller - aspect");
 
-        traceContext.consumer(traceDTO -> {
+        TraceDTO traceDto = traceContext.consumer(traceDTO -> {
             if ("0.0".equals(traceDTO.getSpanId())) {
                 Map<String, String> map = new HashMap<>();
                 map.put("sequenceNo", UUIDUtils.genRandomNum(10));
                 traceDTO.setProperties(map);
             }
-//            if (StringUtils.isEmpty(traceDTO.getTraceId())) {
-//                traceDTO.setTraceId(UUIDUtils.simpleUUID());
-//                traceDTO.setSpanId("0.1");
-//            }
+        });
+        return CollectingLogUtils.collectionLog(traceDto, traceLog -> {
+            try {
+                traceLog.setTraceType("aspect");
+                return pjp.proceed();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+                return pjp;
+            }
         });
     }
 }

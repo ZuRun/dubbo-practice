@@ -4,6 +4,7 @@ import cn.zull.study.mq.AbstractRocketMqConsumer;
 import cn.zull.study.mq.constants.ConsumerTag;
 import cn.zull.study.mq.constants.Tag;
 import cn.zull.tracing.core.RestTemplateFactory;
+import cn.zull.tracing.core.log.CollectingLogUtils;
 import cn.zull.tracing.rocketmq.RocketmqTraceContext;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -48,8 +49,11 @@ public class DemoMqConsumer extends AbstractRocketMqConsumer {
     @Override
     public boolean consumeMsg(MessageExt messageExt) {
         logger.info("messageExt:{}", messageExt);
-        traceContext.consumer(traceDTO -> {
-        }, messageExt);
+        CollectingLogUtils.collectionLog(traceContext.consumer(traceDTO -> {
+        }, messageExt), traceLog -> {
+            traceLog.setTraceType("rocketmq-consumer");
+            return null;
+        });
         String body = new String(messageExt.getBody());
         logger.info("rest " + restTemplate.getForObject("http://localhost:8080/sayHello?name=" + "张三", String.class));
         return true;
