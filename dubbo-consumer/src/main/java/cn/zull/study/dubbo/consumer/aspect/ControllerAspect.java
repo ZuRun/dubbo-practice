@@ -2,8 +2,8 @@ package cn.zull.study.dubbo.consumer.aspect;
 
 import cn.zull.study.dubbo.api.utils.UUIDUtils;
 import cn.zull.tracing.core.RestTraceContext;
+import cn.zull.tracing.core.after.TracingLogPostProcessingUtils;
 import cn.zull.tracing.core.dto.TraceDTO;
-import cn.zull.tracing.core.log.CollectingLogUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -43,7 +43,7 @@ public class ControllerAspect {
                 traceDTO.setProperties(map);
             }
         });
-        return CollectingLogUtils.collectionLog(traceDto, traceLog -> {
+        return TracingLogPostProcessingUtils.collectionLog(traceDto, traceLog -> {
             try {
                 traceLog.setTraceType("aspect");
                 return pjp.proceed();

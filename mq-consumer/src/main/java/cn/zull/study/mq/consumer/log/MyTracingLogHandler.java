@@ -1,6 +1,6 @@
 package cn.zull.study.mq.consumer.log;
 
-import cn.zull.tracing.core.log.TracingLogHandler;
+import cn.zull.tracing.core.after.TracingLogHandler;
 import cn.zull.tracing.core.model.TraceLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
